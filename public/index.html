@@ -1,51 +1,56 @@
-﻿<!DOCTYPE HTML>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>clappr dash shaka</title>
-</head>
-<body>
-    <div id="player"></div>
-    <script type="text/javascript" charset="utf-8">
-        window.onload = function () {
-            var onBeforeLoad = function (shaka_player) {
-                shaka_player.getNetworkingEngine().registerRequestFilter(function (type, request) {
-                    if (type == 2) { // shaka.net.NetworkingEngine.RequestType.LICENSE
-                        // do something
-                    }
-                });
-                shaka_player.getNetworkingEngine().registerResponseFilter(function (type, response) {
-                    if (type == 2) { // shaka.net.NetworkingEngine.RequestType.LICENSE
-                        // do something
-                    }
-                });
-            }
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    <meta name="description" content="Playground page to plays with the Clappr plugin.">
+    <title>Plugin Playground</title>
+    <style>
+      *{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;font-size:62.5%;-webkit-tap-highlight-color:transparent}body{margin:0;padding:0}a:hover{color:#fff;text-decoration:none}.run{float:right;margin:20px 0}.container{text-align:center;display:flex;flex-direction:column;justify-content:space-between;align-items:center}.main{margin:20px;border:0}#player-wrapper{min-width:320px;min-height:180px}.sidebar{margin:20px;text-align:left;width:640px;border:0}#editor{border:1px solid #c0c0ee;min-height:360px}#console{position:relative;color:red;left:2%;top:65px}.btn:focus{outline:0}
+    </style>
+    <link rel="shortcut icon" type="image/png" href="images/favico.png">
+  </head>
+  <body>
+    <section class="container">
+      <div class="main">
+        <div id="output">
+          <div id="player-wrapper" class="player"></div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div id="editor">const playerElement = document.getElementById('player-wrapper')
+Clappr.Log.setLevel(Clappr.Log.LEVEL_INFO);
 
-            var player = new Clappr.Player({
-                parentId: '#player', autoPlay: true,
-                plugins: [DashShakaPlayback, LevelSelector],
-                shakaConfiguration: {
-                    preferredAudioLanguage: 'pt-BR',
-                    streaming: {
-                        rebufferingGoal: 15
-                    }
-                },
-                shakaOnBeforeLoad: onBeforeLoad,
-                //source: 'http://live.unified-streaming.com/loop/loop.isml/loop.mpd?format=mp4&session_id=25020', //LIVE
-                source: '//storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd', //multi audio, sub
-                //source: 'http://dash.edgesuite.net/dash264/TestCases/2c/qualcomm/2/MultiRes.mpd', //VOD multiple qualities
-                //source: 'http://rdmedia.bbc.co.uk/dash/ondemand/elephants_dream/1/client_manifest-all.mpd', //SUB
-                //source: 'http://dash.edgesuite.net/dash264/TestCases/3b/fraunhofer/heaac_stereo_with_video/ElephantsDream/elephants_dream_480p_heaac_stereo_sidx.mpd', //VOD multiple audios
-                //source: 'http://dash.edgesuite.net/dash264/TestCases/4b/qualcomm/2/TearsOfSteel_onDem5secSegSubTitles.mpd', //VOD subtitle
-                //source: 'http://dash.edgesuite.net/akamai/streamroot/050714/Spring_4Ktest.mpd', //4K
-                // for more examples go to: http://dashif.org/reference/players/javascript/v1.5.1/samples/dash-if-reference-player/index.html and https://shaka-player-demo.appspot.com/
-                height: 360,
-                width: 640
-            })
-        }
+const player = new Clappr.Player({
+  //source: '//storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd', //
+  // source: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
+  source: 'http://clappr.io/highline.mp4',
+  //source: 'http://www.streambox.fr/playlists/x36xhzz/x36xhzz.m3u8',
+  poster: 'http://clappr.io/poster.png',
+  plugins: [
+    window.ClapprStats,
+    window.DashShakaPlayback,
+    window.LevelSelector
+  ],
+})
+
+player.attachTo(playerElement)
+        </div>
+        <button class="run btn btn-primary">Run</button>
+        <div id="console"></div>
+      </div>
+    </section>
+    <footer class="footer"></footer>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@clappr/player@latest/dist/clappr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/clappr.level-selector/latest/level-selector.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="https://pagecdn.io/lib/ace/1.4.12/ace.js" defer></script>
+    <script type="text/javascript" charset="utf-8" src="javascript/main.js" defer></script>
+    <!-- // For using on demo page. -->
     </script>
-    <script src="https://cdn.jsdelivr.net/gh/clappr/clappr@latest/dist/clappr.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="./dist/dash-shaka-playback.js"> </script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/clappr.level-selector/latest/level-selector.min.js"></script>
-</body>
+    <script type="text/javascript" charset="utf-8" src="clappr-dash-shaka-playback.js" defer>
+      // For test with the local build.
+    </script>
+    <script type="text/javascript" charset="utf-8" src="javascript/clappr-config.js" defer></script>
+  </body>
 </html>
+
