@@ -1,5 +1,5 @@
 {
-  "name": "dash-shaka-playback",
+  "name": "@guzzj/dash-shaka-playback",
   "version": "3.0.1",
   "description": "clappr dash playback based on shaka player",
   "source": "src/clappr-dash-shaka-playback.js",
@@ -7,7 +7,7 @@
   "module": "dist/clappr-dash-shaka-playback.esm.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:clappr/dash-shaka-playback.git"
+    "url": "git@github.com:guzz/dash-shaka-playback.git"
   },
   "scripts": {
     "bundle-check": "ANALYZE_BUNDLE=true rollup --config",
@@ -50,5 +50,8 @@
   },
   "dependencies": {
     "shaka-player": "^3.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
