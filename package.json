@@ -1,6 +1,6 @@
 {
   "name": "@guzzj/dash-shaka-playback",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "clappr dash playback based on shaka player",
   "source": "src/clappr-dash-shaka-playback.js",
   "main": "dist/clappr-dash-shaka-playback.js",

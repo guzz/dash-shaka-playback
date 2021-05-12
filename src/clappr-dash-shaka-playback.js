@@ -1,4 +1,4 @@
-import {HTML5Video, Log, Events, PlayerError} from '@guzzj/clappr-core'
+import { HTML5Video, Log, Events, PlayerError, version } from '@guzzj/clappr-core'
 import shaka from 'shaka-player'
 
 const SEND_STATS_INTERVAL_MS = 30 * 1e3
@@ -10,6 +10,8 @@ class DashShakaPlayback extends HTML5Video {
       SHAKA_READY: 'shaka:ready'
     }
   }
+
+  get supportedVersion() { return { min: version } }
 
   static get shakaPlayer() { return shaka }
 
