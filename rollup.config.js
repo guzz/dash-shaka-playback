@@ -26,14 +26,14 @@ const plugins = [
 
 const mainBundle = {
   input: 'src/clappr-dash-shaka-playback.js',
-  external: ['@clappr/core'],
+  external: ['@guzzj/clappr-core'],
   output: [
     {
       name: 'DashShakaPlayback',
       file: pkg.main,
       format: 'umd',
       globals: {
-        '@clappr/core': 'Clappr'
+        '@guzzj/clappr-core': 'Clappr'
       },
     },
     !!process.env.MINIMIZE && {
@@ -41,7 +41,7 @@ const mainBundle = {
       file: 'dist/clappr-dash-shaka-playback.min.js',
       format: 'umd',
       globals: {
-        '@clappr/core': 'Clappr'
+        '@guzzj/clappr-core': 'Clappr'
       },
       plugins: terser(),
     },
@@ -51,13 +51,13 @@ const mainBundle = {
 
 const esmBundle = {
   input: 'src/clappr-dash-shaka-playback.js',
-  external: ['@clappr/core', /@babel\/runtime/],
+  external: ['@guzzj/clappr-core', /@babel\/runtime/],
   output: {
     name: 'DashShakaPlayback',
     file: pkg.module,
     format: 'esm',
     globals: {
-      '@clappr/core': 'Clappr'
+      '@guzzj/clappr-core': 'Clappr'
     },
   },
   plugins: [

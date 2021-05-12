@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@clappr/core')) :
-  typeof define === 'function' && define.amd ? define(['@clappr/core'], factory) :
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@guzzj/clappr-core')) :
+  typeof define === 'function' && define.amd ? define(['@guzzj/clappr-core'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DashShakaPlayback = factory(global.Clappr));
-}(this, (function (core) { 'use strict';
+}(this, (function (clapprCore) { 'use strict';
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -1064,7 +1064,7 @@
 
         this._currentLevelId = id;
         var isAuto = this._currentLevelId === DEFAULT_LEVEL_AUTO;
-        this.trigger(core.Events.PLAYBACK_LEVEL_SWITCH_START);
+        this.trigger(clapprCore.Events.PLAYBACK_LEVEL_SWITCH_START);
 
         if (!isAuto) {
           this._player.configure({
@@ -1084,7 +1084,7 @@
             }
           });
 
-          this.trigger(core.Events.PLAYBACK_LEVEL_SWITCH_END);
+          this.trigger(clapprCore.Events.PLAYBACK_LEVEL_SWITCH_END);
         }
       }
     }, {
@@ -1135,8 +1135,8 @@
     }, {
       key: "_updateDvr",
       value: function _updateDvr(status) {
-        this.trigger(core.Events.PLAYBACK_DVR, status);
-        this.trigger(core.Events.PLAYBACK_STATS_ADD, {
+        this.trigger(clapprCore.Events.PLAYBACK_DVR, status);
+        this.trigger(clapprCore.Events.PLAYBACK_STATS_ADD, {
           'dvr': status
         });
       }
@@ -1144,7 +1144,7 @@
       key: "seek",
       value: function seek(time) {
         if (time < 0) {
-          core.Log.warn('Attempt to seek to a negative time. Resetting to live point. Use seekToLivePoint() to seek to the live point.');
+          clapprCore.Log.warn('Attempt to seek to a negative time. Resetting to live point. Use seekToLivePoint() to seek to the live point.');
           time = this._duration;
         } // assume live if time within 3 seconds of end of stream
 
@@ -1235,7 +1235,7 @@
       value: function _onShakaReady() {
         this._isShakaReadyState = true;
         this.trigger(DashShakaPlayback.Events.SHAKA_READY);
-        this.trigger(core.Events.PLAYBACK_READY, this.name);
+        this.trigger(clapprCore.Events.PLAYBACK_READY, this.name);
       }
     }, {
       key: "isReady",
@@ -1246,7 +1246,7 @@
     }, {
       key: "error",
       value: function error(event) {
-        core.Log.error('an error was raised by the video tag', event, this.el.error);
+        clapprCore.Log.error('an error was raised by the video tag', event, this.el.error);
       }
     }, {
       key: "isHighDefinitionInUse",
@@ -1272,7 +1272,7 @@
             _this4._player = null;
             _this4._isShakaReadyState = false;
           })["catch"](function () {
-            core.Log.error('shaka could not be unloaded');
+            clapprCore.Log.error('shaka could not be unloaded');
           });
         } else {
           _get(_getPrototypeOf(DashShakaPlayback.prototype), "stop", this).call(this);
@@ -1370,12 +1370,12 @@
           });
 
           if (!showingTrack) {
-            core.Log.warn("Track id \"".concat(trackId, "\" not found"));
+            clapprCore.Log.warn("Track id \"".concat(trackId, "\" not found"));
             return;
           }
 
           if (this._shakaTTVisible && showingTrack.track.active === true) {
-            core.Log.info("Track id \"".concat(trackId, "\" already showing"));
+            clapprCore.Log.info("Track id \"".concat(trackId, "\" already showing"));
             return;
           }
         }
@@ -1393,7 +1393,7 @@
         }
 
         this._ccTrackId = trackId;
-        this.trigger(core.Events.PLAYBACK_SUBTITLE_CHANGED, {
+        this.trigger(clapprCore.Events.PLAYBACK_SUBTITLE_CHANGED, {
           id: trackId
         });
       }
@@ -1421,7 +1421,7 @@
         }
 
         if (this.hasClosedCaptionsTracks) {
-          this.trigger(core.Events.PLAYBACK_SUBTITLE_AVAILABLE);
+          this.trigger(clapprCore.Events.PLAYBACK_SUBTITLE_AVAILABLE);
           var trackId = this.closedCaptionsTrackId;
           this.closedCaptionsTrackId = trackId;
         }
@@ -1443,7 +1443,7 @@
           })["catch"](function () {
             _this5._destroy();
 
-            core.Log.error('shaka could not be destroyed');
+            clapprCore.Log.error('shaka could not be destroyed');
           });
         } else {
           this._destroy();
@@ -1509,7 +1509,7 @@
         var isSame = this._lastTimeUpdate && update.current === this._lastTimeUpdate.current && update.total === this._lastTimeUpdate.total;
         if (isSame) return;
         this._lastTimeUpdate = update;
-        this.trigger(core.Events.PLAYBACK_TIMEUPDATE, update, this.name);
+        this.trigger(clapprCore.Events.PLAYBACK_TIMEUPDATE, update, this.name);
       } // skipping HTML5 `_handleBufferingEvents` in favor of shaka buffering events
 
     }, {
@@ -1525,12 +1525,12 @@
     }, {
       key: "_onBuffering",
       value: function _onBuffering() {
-        this.trigger(core.Events.PLAYBACK_BUFFERING);
+        this.trigger(clapprCore.Events.PLAYBACK_BUFFERING);
       }
     }, {
       key: "_onBufferfull",
       value: function _onBufferfull() {
-        this.trigger(core.Events.PLAYBACK_BUFFERFULL);
+        this.trigger(clapprCore.Events.PLAYBACK_BUFFERFULL);
         if (this._isSeeking) this._onSeeked();
         if (this.isPlaying()) this._onPlaying();
       }
@@ -1555,7 +1555,7 @@
               label: "".concat(videoTrack.height, "p")
             };
           }).reverse();
-          this.trigger(core.Events.PLAYBACK_LEVELS_AVAILABLE, this.levels);
+          this.trigger(clapprCore.Events.PLAYBACK_LEVELS_AVAILABLE, this.levels);
         }
       }
     }, {
@@ -1571,7 +1571,7 @@
     }, {
       key: "_sendStats",
       value: function _sendStats() {
-        this.trigger(core.Events.PLAYBACK_STATS_ADD, this._player.getStats());
+        this.trigger(clapprCore.Events.PLAYBACK_STATS_ADD, this._player.getStats());
       }
     }, {
       key: "_setupError",
@@ -1596,12 +1596,12 @@
         var errorData = {
           code: "".concat(category, "_").concat(code),
           description: "Category: ".concat(category, ", code: ").concat(code, ", severity: ").concat(severity),
-          level: isCritical ? core.PlayerError.Levels.FATAL : core.PlayerError.Levels.WARN,
+          level: isCritical ? clapprCore.PlayerError.Levels.FATAL : clapprCore.PlayerError.Levels.WARN,
           raw: err
         };
         var formattedError = this.createError(errorData);
-        core.Log.error('Shaka error event:', formattedError);
-        this.trigger(core.Events.PLAYBACK_ERROR, formattedError);
+        clapprCore.Log.error('Shaka error event:', formattedError);
+        this.trigger(clapprCore.Events.PLAYBACK_ERROR, formattedError);
       }
     }, {
       key: "_onAdaptation",
@@ -1617,14 +1617,14 @@
         this._sendStats();
 
         if (this._pendingAdaptationEvent) {
-          this.trigger(core.Events.PLAYBACK_LEVEL_SWITCH_END);
+          this.trigger(clapprCore.Events.PLAYBACK_LEVEL_SWITCH_END);
           this._pendingAdaptationEvent = false;
         }
 
-        core.Log.debug('an adaptation has happened:', activeVideo);
+        clapprCore.Log.debug('an adaptation has happened:', activeVideo);
         this.highDefinition = activeVideo.height >= 720;
-        this.trigger(core.Events.PLAYBACK_HIGHDEFINITIONUPDATE, this.highDefinition);
-        this.trigger(core.Events.PLAYBACK_BITRATE, {
+        this.trigger(clapprCore.Events.PLAYBACK_HIGHDEFINITIONUPDATE, this.highDefinition);
+        this.trigger(clapprCore.Events.PLAYBACK_BITRATE, {
           bandwidth: activeVideo.bandwidth,
           width: activeVideo.width,
           height: activeVideo.height,
@@ -1637,13 +1637,13 @@
       value: function _updateSettings() {
         if (this.getPlaybackType() === 'vod') this.settings.left = ['playpause', 'position', 'duration'];else if (this.dvrEnabled) this.settings.left = ['playpause'];else this.settings.left = ['playstop'];
         this.settings.seekEnabled = this.isSeekEnabled();
-        this.trigger(core.Events.PLAYBACK_SETTINGSUPDATE);
+        this.trigger(clapprCore.Events.PLAYBACK_SETTINGSUPDATE);
       }
     }, {
       key: "_destroy",
       value: function _destroy() {
         this._isShakaReadyState = false;
-        core.Log.debug('shaka was destroyed');
+        clapprCore.Log.debug('shaka was destroyed');
       }
     }], [{
       key: "Events",
@@ -1669,7 +1669,7 @@
     }]);
 
     return DashShakaPlayback;
-  }(core.HTML5Video);
+  }(clapprCore.HTML5Video);
 
   return DashShakaPlayback;
 

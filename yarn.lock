@@ -886,11 +886,6 @@
     "@babel/helper-validator-identifier" "^7.14.0"
     to-fast-properties "^2.0.0"
 
-"@clappr/core@^0.4.18":
-  version "0.4.18"
-  resolved "https://registry.yarnpkg.com/@clappr/core/-/core-0.4.18.tgz#7becc6c32f2a48a097d1ca158dbda0169f7979ce"
-  integrity sha512-MMZ6j2+pbtoo/dPi9nyo/dAfW3u0D3np7mpT0VHNNjy+K8qZZAlyF2kYNHjwqyj6pRY0kRWj4KMXA5SUMR7Zyg==
-
 "@eslint/eslintrc@^0.4.1":
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-0.4.1.tgz#442763b88cecbe3ee0ec7ca6d6dd6168550cbf14"
@@ -905,6 +900,11 @@
     js-yaml "^3.13.1"
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
+
+"@guzzj/clappr-core@^0.4.19":
+  version "0.4.19"
+  resolved "https://registry.yarnpkg.com/@guzzj/clappr-core/-/clappr-core-0.4.19.tgz#30c3bbf8530cc4e806f4231d258fe4ffaeecfbc5"
+  integrity sha512-xD6E4lflQ4S4n4p2pMJsoM0CKsIjVwyejf6wl1y+OQzKaADpJ+esZ1Psbq2BMlMXpwaHHiOwEfHOPjy+OiHTWw==
 
 "@npmcli/git@^2.0.1":
   version "2.0.9"
